@@ -72,7 +72,7 @@ Author: prajit.das
             android:label="@string/title_activity_dbops" >
         </activity>
         <provider
-            android:name=".contentprovider.SContentProvider"
+            android:name=".contentprovider.EbAndMWContentProvider"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.contentprovider.Content"
             android:exported="true"
             android:label="@string/ebandmw_content_provider_label"

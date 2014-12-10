@@ -20,9 +20,9 @@ public class EbAndMWApplication extends Application {
 	
 	private static final String CONST_SCHEME = "content://";
 
-	private static final String CONST_ANONYMIZED_AUTHORITY_PREFIX = "com.prajitdas.sprivacy.anonymizedcontentprovider.Content.";
+	private static final String CONST_ANONYMIZED_AUTHORITY_PREFIX = "edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.";
 
-	private static final String CONST_APP_FOR_WHICH_WE_ARE_SETTING_POLICIES = "com.prajitdas.parserapp";
+	private static final String CONST_APP_FOR_WHICH_WE_ARE_SETTING_POLICIES = "edu.umbc.cs.ebiquity.mithril.parserapp";
 
 	private static final String CONST_AUDIOS = "audios";
 
@@ -32,7 +32,7 @@ public class EbAndMWApplication extends Application {
 
 	private static final String CONST_FAKE = "fake";
 
-	private static final String CONST_FAKE_AUTHORITY_PREFIX = "com.prajitdas.sprivacy.fakecontentprovider.Content.";
+	private static final String CONST_FAKE_AUTHORITY_PREFIX = "edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.";
 	
 	private static final String CONST_FILES = "files";
 	
@@ -40,11 +40,11 @@ public class EbAndMWApplication extends Application {
 	
 	private static final String CONST_SLASH = "/";
 	
-	private static final String CONST_SPRIVACY_AUTHORITY = "com.prajitdas.sprivacy.contentprovider.Content";
+	private static final String CONST_EBANDMW_AUTHORITY = "edu.umbc.cs.ebiquity.mithril.comandd.contentprovider.Content";
 	
 	private static final String CONST_VIDEOS = "videos";
 
-	private static final String DEBUG_TAG = "SPrivacyApplicationDebugTag";
+	private static final String DEBUG_TAG = "EbAndMWApplicationDebugTag";
 
 	private static final String CONST_ANDROID_ID = "androidid";
 
@@ -86,8 +86,8 @@ public class EbAndMWApplication extends Application {
 		return CONST_SLASH;
 	}
 
-	public static String getConstSprivacyAuthority() {
-		return CONST_SPRIVACY_AUTHORITY;
+	public static String getConstEbAndMWAuthority() {
+		return CONST_EBANDMW_AUTHORITY;
 	}
 
 	public static String getConstVideos() {

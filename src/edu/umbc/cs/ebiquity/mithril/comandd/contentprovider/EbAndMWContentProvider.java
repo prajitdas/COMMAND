@@ -24,6 +24,7 @@ import edu.umbc.cs.ebiquity.mithril.comandd.EbAndMWApplication;
 import edu.umbc.cs.ebiquity.mithril.comandd.policymanager.PolicyChecker;
 import edu.umbc.cs.ebiquity.mithril.comandd.policymanager.util.AccessControl;
 import edu.umbc.cs.ebiquity.mithril.comandd.policymanager.util.PolicyQuery;
+
 /**
  * @purpose: SPrivacy content provider is the class where everything happens. This class acts as the content provider
  * for any and all data that applications might want to access. The request first comes in as a request to SPrivacy.
@@ -486,11 +487,12 @@ import edu.umbc.cs.ebiquity.mithril.comandd.policymanager.util.PolicyQuery;
  * @version 1.0
  * @author prajit.das
  */
-public class SContentProvider extends ContentProvider {
+
+public class EbAndMWContentProvider extends ContentProvider {
 	/**
 	 * Forming the authority of the SPrivacy provider
 	 */
-	static final String PROVIDER_NAME = EbAndMWApplication.getConstSprivacyAuthority();
+	static final String PROVIDER_NAME = EbAndMWApplication.getConstEbAndMWAuthority();
 	static final String PROVIDER_BASE_URL = EbAndMWApplication.getConstScheme() + PROVIDER_NAME;
 
 	/**
