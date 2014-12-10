@@ -22,11 +22,11 @@ Author: prajit.das
     android:versionCode="1"
     android:versionName="1.0" >
 
-<!-- 	<permission
+	<permission
         android:name="android.permission.ebandmw.READ_WRITE_CONTENT"
         android:description="@string/permdesc_read_write_content"
         android:label="@string/permlabel_read_write_content"
-        android:protectionLevel="normal" /> -->
+        android:protectionLevel="normal" />
     
     <uses-sdk
         android:minSdkVersion="17"
@@ -75,58 +75,58 @@ Author: prajit.das
             android:name=".contentprovider.SContentProvider"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.contentprovider.Content"
             android:exported="true"
-            android:label="@string/ebandmw_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <!-- Fake content providers -->
         <provider
             android:name=".contentprovider.util.fakecontentproviders.AndroidId"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakeandroidid"
             android:exported="true"
-            android:label="@string/ebandmw_fake_android_id_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_fake_android_id_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.CallLogs"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakecalls"
             android:exported="true"
-            android:label="@string/ebandmw_fake_calllogs_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_fake_calllogs_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Contacts"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakecontacts"
             android:exported="true"
-            android:label="@string/ebandmw_fake_contact_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_fake_contact_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Images"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakeimages"
             android:exported="true"
-            android:label="@string/ebandmw_fake_image_content_provider_label">
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > --> 
+            android:label="@string/ebandmw_fake_image_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > 
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Videos"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakevideos"
             android:exported="true"
-            android:label="@string/ebandmw_fake_video_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_fake_video_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Audios"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakeaudios"
             android:exported="true"
-            android:label="@string/ebandmw_fake_audio_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_fake_audio_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Files"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.fakecontentprovider.Content.fakefiles"
             android:exported="true"
-            android:label="@string/ebandmw_fake_file_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_fake_file_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         
         <!-- Anonymized content providers -->
@@ -134,50 +134,50 @@ Author: prajit.das
             android:name=".contentprovider.util.anonymizedcontentproviders.AndroidId"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedandroidid"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_android_id_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_android_id_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.CallLogs"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedcalls"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_calllogs_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_calllogs_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Contacts"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedcontacts"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_contact_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_contact_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Images"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedimages"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_image_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_image_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Videos"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedvideos"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_video_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_video_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Audios"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedaudios"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_audio_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_audio_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Files"
             android:authorities="edu.umbc.cs.ebiquity.mithril.comandd.anonymizedcontentprovider.Content.anonymizedfiles"
             android:exported="true"
-            android:label="@string/ebandmw_anonymized_file_content_provider_label" >
-            <!-- android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" > -->
+            android:label="@string/ebandmw_anonymized_file_content_provider_label"
+            android:permission="android.permission.ebandmw.READ_WRITE_CONTENT" >
         </provider>
 <!-- 		<receiver android:name=".contentprovider.util.MediaScannerBroadcastReceiver">
 			<intent-filter>
