@@ -30,7 +30,7 @@ public class EbAndMWApplication extends Application {
 
 	private static final String CONST_CONTACTS = "contacts";
 
-	private static final String CONST_EBANDMW_APP_BROADCAST_INTENT = "edu.umbc.cs.ebiquity.mithril.comandd.broadcastintent";
+	private static final String CONST_EBANDMW_APP_BROADCAST_INTENT = "edu.umbc.cs.ebiquity.mithril.comandd.intent.action.DATA_REQUEST";
 
 	private static final String CONST_EBANDMW_AUTHORITY = "edu.umbc.cs.ebiquity.mithril.comandd.contentprovider.Content";
 	
