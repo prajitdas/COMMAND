@@ -1203,7 +1203,8 @@ public class EbAndMWContentProvider extends ContentProvider {
 		//Ensuring that when the content request is made for "any content" we send out a broadcast letting the listeners know that this request was made
 		Intent contentRequestedEbAndMWIntent = new Intent();
 		contentRequestedEbAndMWIntent.setAction(EbAndMWApplication.getConstEbandmwAppBroadcastIntent());
-		contentRequestedEbAndMWIntent.putExtra("uri", uri);
+		contentRequestedEbAndMWIntent.putExtra("uri", uri.toString());
+		Log.d(EbAndMWApplication.getDebugTag(), "Broadcast being sent!");
 		getContext().sendBroadcast(contentRequestedEbAndMWIntent);
 		
 		return c;
