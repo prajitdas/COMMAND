@@ -7,7 +7,7 @@ This project was started as a part of my internship at Samsing Research America.
 1. [Prajit Kumar Das](http://www.umbc.edu/~prajit1) of [Ebiquity Research Group](http://ebiquity.umbc.edu), [UMBC](http://umbc.edu)
 2. [Bin Liu](http://www-scf.usc.edu/~binliu) of [Samsung Research America](http://www.sisa.samsung.com/research-lab/advanced-technology-lab).
 
-Last edit date: 12/10/2014
+Last edit date: 01/05/2015
 
 Version: 1.0
 
