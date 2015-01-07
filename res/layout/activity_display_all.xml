@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.umbc.cs.ebiquity.mithril.comandd.policymanager.activities.DisplayAllPoliciesActivity" >
+    tools:context="edu.umbc.cs.ebiquity.mithril.command.policymanager.activities.DisplayAllPoliciesActivity" >
 
     <ListView
         android:id="@+id/listViewAllEntities"
