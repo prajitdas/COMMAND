@@ -1234,7 +1234,9 @@ public class COMMANDContentProvider extends ContentProvider {
 		contentRequestedEbAndMWIntent.setAction(COMMANDApplication.getConstEbandmwAppBroadcastIntent());
 		contentRequestedEbAndMWIntent.putExtra("uri", uri.toString());
 		contentRequestedEbAndMWIntent.putExtra("ruleId", ruleId);
-		Log.d(COMMANDApplication.getDebugTag(), "Broadcast being sent!");
+		Log.d(COMMANDApplication.getDebugTag(), "Broadcast being sent with " 
+				+ contentRequestedEbAndMWIntent.getStringExtra("uri")
+				+ Integer.toString(contentRequestedEbAndMWIntent.getIntExtra("ruleId", ruleId)));
 		getContext().sendBroadcast(contentRequestedEbAndMWIntent);
 	}
 
