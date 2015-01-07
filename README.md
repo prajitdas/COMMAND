@@ -1,4 +1,4 @@
-# COMANDD (COntext MANager miDDleware)
+# COMMAND (COntext-aware Middleware for MANaging Data)
 
 This is an Android project to provide privacy controlled data by controlling what data applications can access. The policy options as of now are no data, fake data or full data access. Eventually we will bring in more variety in data access like access to "user anonymous data". This system creates a layer of data obfuscation when so directed by the implemented policy.
 
