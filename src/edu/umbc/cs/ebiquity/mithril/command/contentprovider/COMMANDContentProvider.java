@@ -1122,59 +1122,79 @@ public class COMMANDContentProvider extends ContentProvider {
 			sortOrder = NAME;
 		}
 		
+		/**
+		 * We have to detect which rule was violated from the policy list.
+		 * This is to simulate the recording of violations on the policy administration point.
+		 * So we use the Rule ID depending on which kind of data was requested and send it to the admin app.
+		 */
+		int ruleId = -1;
+		
 		Cursor c;
 		switch (uriMatcher.match(uri)) {
 			case SPrivacyQuery.IMAGES:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setImageData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=2;
 				break;
 			case SPrivacyQuery.FILES:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setFileData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=3;
 				break;
 			case SPrivacyQuery.VIDEOS:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setVideoData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=4;
 				break;
 			case SPrivacyQuery.AUDIOS:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setAudioData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=5;
 				break;
 			case SPrivacyQuery.CONTACTS:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CONTACTS_LOOKUP_ID:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactLookupIdData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CONTACTS_DATA:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactDataData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CONTACTS_DATA_ID:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactDataIdData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CONTACTS_STATUS_UPDATES:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactStatusUpdatesData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CONTACTS_RAW_CONTACTS:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactRawContactsData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CONTACTS_GROUPS:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setContactGroupsData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.CALL_LOGS:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setCallLogsData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=0;
 				break;
 			case SPrivacyQuery.ANDROID_ID:
 				qb.setProjectionMap(PROJECTION_MAP);
 				c = setAndroidIdData(uri, projection, selection, selectionArgs, sortOrder);
+				ruleId=1;
 				break;
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
@@ -1200,6 +1220,12 @@ public class COMMANDContentProvider extends ContentProvider {
 //			} while (c.moveToNext());
 //		}
 		
+		sendDataToMithrilPolicyAdmin(uri, ruleId);
+		
+		return c;
+	}
+	
+	private void sendDataToMithrilPolicyAdmin(Uri uri, int ruleId) {
 		/**
 		 * TODO: Have to figure out how to carry out the implementation of a policy 
 		 * Ensuring that when the content request is made for "any content" we send out a broadcast letting the listeners know that this request was made 
@@ -1207,12 +1233,11 @@ public class COMMANDContentProvider extends ContentProvider {
 		Intent contentRequestedEbAndMWIntent = new Intent();
 		contentRequestedEbAndMWIntent.setAction(COMMANDApplication.getConstEbandmwAppBroadcastIntent());
 		contentRequestedEbAndMWIntent.putExtra("uri", uri.toString());
+		contentRequestedEbAndMWIntent.putExtra("ruleId", ruleId);
 		Log.d(COMMANDApplication.getDebugTag(), "Broadcast being sent!");
 		getContext().sendBroadcast(contentRequestedEbAndMWIntent);
-		
-		return c;
 	}
-	
+
 	private Cursor setAndroidIdData(Uri uri, String[] projection, String selection, 
 			String[] selectionArgs, String sortOrder) {
 		//TODO Have to figure out how to control based on app name and context
