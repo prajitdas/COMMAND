@@ -30,9 +30,9 @@ public class COMMANDApplication extends Application {
 
 	private static final String CONST_CONTACTS = "contacts";
 
-	private static final String CONST_EBANDMW_APP_BROADCAST_INTENT = "edu.umbc.cs.ebiquity.mithril.command.intent.action.DATA_REQUEST";
+	private static final String CONST_COMMAND_APP_BROADCAST_INTENT = "edu.umbc.cs.ebiquity.mithril.command.intent.action.DATA_REQUEST";
 
-	private static final String CONST_EBANDMW_AUTHORITY = "edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content";
+	private static final String CONST_COMMAND_AUTHORITY = "edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content";
 	
 	private static final String CONST_FAKE = "fake";
 	
@@ -48,7 +48,7 @@ public class COMMANDApplication extends Application {
 
 	private static final String CONST_VIDEOS = "videos";
 
-	private static final String DEBUG_TAG = "EbAndMWApplicationDebugTag";
+	private static final String DEBUG_TAG = "COMANDDApplicationDebugTag";
 
 	private static COMMANDApplication singleton;
 
@@ -89,14 +89,14 @@ public class COMMANDApplication extends Application {
 	}
 
 	/**
-	 * @return the constEbandmwAppBroadcastIntent
+	 * @return the constCOMMANDAppBroadcastIntent
 	 */
-	public static String getConstEbandmwAppBroadcastIntent() {
-		return CONST_EBANDMW_APP_BROADCAST_INTENT;
+	public static String getConstCOMMANDAppBroadcastIntent() {
+		return CONST_COMMAND_APP_BROADCAST_INTENT;
 	}
 
 	public static String getConstEbAndMWAuthority() {
-		return CONST_EBANDMW_AUTHORITY;
+		return CONST_COMMAND_AUTHORITY;
 	}
 
 	public static String getConstFake() {

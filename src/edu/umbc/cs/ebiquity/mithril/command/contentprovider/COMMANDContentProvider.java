@@ -1231,7 +1231,7 @@ public class COMMANDContentProvider extends ContentProvider {
 		 * Ensuring that when the content request is made for "any content" we send out a broadcast letting the listeners know that this request was made 
 		 */
 		Intent contentRequestedEbAndMWIntent = new Intent();
-		contentRequestedEbAndMWIntent.setAction(COMMANDApplication.getConstEbandmwAppBroadcastIntent());
+		contentRequestedEbAndMWIntent.setAction(COMMANDApplication.getConstCOMMANDAppBroadcastIntent());
 		contentRequestedEbAndMWIntent.putExtra("uri", uri.toString());
 		contentRequestedEbAndMWIntent.putExtra("ruleId", ruleId);
 		Log.d(COMMANDApplication.getDebugTag(), "Broadcast being sent with " 
