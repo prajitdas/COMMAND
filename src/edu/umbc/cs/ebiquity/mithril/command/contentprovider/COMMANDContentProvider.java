@@ -1036,7 +1036,7 @@ public class COMMANDContentProvider extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		Log.v(COMMANDApplication.getDebugTag(), IMAGES_CONTENT_URI.toString());
+		Log.v(COMMANDApplication.getDebugTag(), "Image one:"+IMAGES_CONTENT_URI.toString());
 		Log.v(COMMANDApplication.getDebugTag(), FILES_CONTENT_URI.toString());
 		Log.v(COMMANDApplication.getDebugTag(), VIDEOS_CONTENT_URI.toString());
 		Log.v(COMMANDApplication.getDebugTag(), AUDIOS_CONTENT_URI.toString());
