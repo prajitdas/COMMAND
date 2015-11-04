@@ -21,6 +21,16 @@ public class COMMANDApplication extends Application {
 			"com.google.android.providers.gsf.permission.READ_GSERVICES"
 		};
 
+	private static final int CONST_PERMISSION_READ_CONTACTS = 1;
+
+	private static final int CONST_PERMISSION_READ_CALL_LOG = 1;
+	
+	private static final int CONST_PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
+	
+	private static final int CONST_PERMISSION_READ_EXTERNAL_STORAGE = 1;
+	
+	private static final int CONST_PERMISSION_READ_GSERVICES = 1;
+
 	private static final String CONST_ACCESS_DENIED = "Denied";
 
 	private static final String CONST_ACCESS_GRANTED = "Granted";
@@ -59,16 +69,6 @@ public class COMMANDApplication extends Application {
 
 	private static final String DEBUG_TAG = "COMANDDApplicationDebugTag";
 	
-	private static final int CONST_PERMISSION_READ_CONTACTS = 1;
-
-	private static final int CONST_PERMISSION_READ_CALL_LOG = 1;
-	
-	private static final int CONST_PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
-	
-	private static final int CONST_PERMISSION_READ_EXTERNAL_STORAGE = 1;
-	
-	private static final int CONST_PERMISSION_READ_GSERVICES = 1;
-
 	private static COMMANDApplication singleton;
 
 	public static String getConstAccessDenied() {
