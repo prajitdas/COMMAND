@@ -2,6 +2,7 @@ package edu.umbc.cs.ebiquity.mithril.command.policymanager.activities;
 
 import java.util.ArrayList;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -13,6 +14,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -38,6 +41,7 @@ import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.PolicyInfo;
  * @author prajit.das
  */
 public class PolicyRuleChooserActivity extends Activity {
+	private String [] permissionsList = COMMANDApplication.getPermissionsCOMMAND();
 	private Button mBtnDBOps;
 	private TableLayout mTableOfPolicies;
 //	private TextView mLargeTextView;
@@ -71,8 +75,137 @@ public class PolicyRuleChooserActivity extends Activity {
 		
 		instantiateViews();
 		addOnClickListener();
+		checkMarshMallowPermissions();
 	}
 	
+	/**
+	 * Since we are using Marshmallow we have to check for these permissions now 
+	 * <uses-permission android:name="android.permission.READ_CONTACTS" />
+	 * <uses-permission android:name="android.permission.READ_CALL_LOG" />
+	 * <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	 * <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+	 * <!-- Required permission not required at or below Android 4.3 API level -->
+	 * <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	 * <!-- Unusual but true! -->
+	 */
+	private void checkMarshMallowPermissions() {
+		checkReadContactsPermission();
+		checkReadCallLogsPermission();
+		checkReadExternalStoragePermission();
+		checkWriteExternalStoragePermission();
+		checkReadGServicesPermission();
+	}
+
+	private void checkReadGServicesPermission() {
+		String [] tempList = {permissionsList[4]}; 
+		// Here, thisActivity is the current activity
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
+				// Show an expanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+			} 
+			else {
+				// No explanation needed, we can request the permission.
+				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadContacts());
+				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
+				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+				// app-defined int constant. The callback method gets the
+				// result of the request.
+			}
+		}
+	}
+
+	private void checkReadExternalStoragePermission() {
+		String [] tempList = {permissionsList[0]}; 
+		// Here, thisActivity is the current activity
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
+				// Show an expanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+			} 
+			else {
+				// No explanation needed, we can request the permission.
+				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadContacts());
+				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
+				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+				// app-defined int constant. The callback method gets the
+				// result of the request.
+			}
+		}
+	}
+
+	private void checkReadCallLogsPermission() {
+		String [] tempList = {permissionsList[0]}; 
+		// Here, thisActivity is the current activity
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
+				// Show an expanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+			} 
+			else {
+				// No explanation needed, we can request the permission.
+				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadContacts());
+				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
+				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+				// app-defined int constant. The callback method gets the
+				// result of the request.
+			}
+		}
+	}
+
+	private void checkWriteExternalStoragePermission() {
+		String [] tempList = {permissionsList[0]}; 
+		// Here, thisActivity is the current activity
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
+				// Show an expanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+			} 
+			else {
+				// No explanation needed, we can request the permission.
+				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadContacts());
+				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
+				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+				// app-defined int constant. The callback method gets the
+				// result of the request.
+			}
+		}
+	}
+
+	private void checkReadContactsPermission() {
+		String [] tempList = {permissionsList[0]}; 
+		// Here, thisActivity is the current activity
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+			// Should we show an explanation?
+			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
+				// Show an expanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+			} 
+			else {
+				// No explanation needed, we can request the permission.
+				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadContacts());
+				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
+				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+				// app-defined int constant. The callback method gets the
+				// result of the request.
+			}
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -145,27 +278,27 @@ public class PolicyRuleChooserActivity extends Activity {
 		TextView mTextViewPolicyLevl = new TextView(this);
 		
 		mTextViewPolicyStmt.setText(R.string.text_view_policy_conditions);
-		mTextViewPolicyStmt.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+		mTextViewPolicyStmt.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
 		mTextViewPolicyStmt.setTypeface(Typeface.SERIF, Typeface.BOLD);
 		mTextViewPolicyStmt.setGravity(Gravity.CENTER);
-		mTextViewPolicyStmt.setTextColor(getResources().getColor(R.color.WhiteSmoke));
+		mTextViewPolicyStmt.setTextColor(ContextCompat.getColor(this, R.color.WhiteSmoke));
 		
 		mTextViewPolicyValu.setText(R.string.text_view_policy_setting);
-		mTextViewPolicyValu.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+		mTextViewPolicyValu.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
 		mTextViewPolicyValu.setTypeface(Typeface.SERIF, Typeface.BOLD);
 		mTextViewPolicyValu.setGravity(Gravity.CENTER);
-		mTextViewPolicyValu.setTextColor(getResources().getColor(R.color.WhiteSmoke));
+		mTextViewPolicyValu.setTextColor(ContextCompat.getColor(this, R.color.WhiteSmoke));
 		
 		mTextViewPolicyLevl.setText(R.string.text_view_policy_level);
-		mTextViewPolicyLevl.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+		mTextViewPolicyLevl.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
 		mTextViewPolicyLevl.setTypeface(Typeface.SERIF, Typeface.BOLD);
 		mTextViewPolicyLevl.setGravity(Gravity.CENTER);
-		mTextViewPolicyLevl.setTextColor(getResources().getColor(R.color.WhiteSmoke));
+		mTextViewPolicyLevl.setTextColor(ContextCompat.getColor(this, R.color.WhiteSmoke));
 		
 		tblRow.addView(mTextViewPolicyStmt);
 		tblRow.addView(mTextViewPolicyValu);
 		tblRow.addView(mTextViewPolicyLevl);
-		tblRow.setBackgroundColor(getResources().getColor(R.color.Black));
+		tblRow.setBackgroundColor(ContextCompat.getColor(this, R.color.Black));
 		mTableOfPolicies.addView(tblRow);
 	}
 	
@@ -184,7 +317,7 @@ public class PolicyRuleChooserActivity extends Activity {
 			RadioGroup tempViewPolGroup = new RadioGroup(this);
 
 			tempViewPolcStmt.setText(aPolicyRule.toString());
-			tempViewPolcStmt.setTextColor(getResources().getColor(R.color.DarkBlue));
+			tempViewPolcStmt.setTextColor(ContextCompat.getColor(this, R.color.DarkBlue));
 			tempViewPolcStmt.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 			tempViewPolcStmt.setGravity(Gravity.CENTER);
 			
@@ -192,25 +325,25 @@ public class PolicyRuleChooserActivity extends Activity {
 			tempToggleButton.setTextOff(COMMANDApplication.getConstAccessDenied());
 			tempToggleButton.setChecked(aPolicyRule.isRule());
 			if(aPolicyRule.isRule())
-				tempToggleButton.setBackgroundColor(getResources().getColor(R.color.Green));
+				tempToggleButton.setBackgroundColor(ContextCompat.getColor(this, R.color.Green));
 			else
-				tempToggleButton.setBackgroundColor(getResources().getColor(R.color.Red));
-			tempToggleButton.setTextColor(getResources().getColor(R.color.White));
+				tempToggleButton.setBackgroundColor(ContextCompat.getColor(this, R.color.Red));
+			tempToggleButton.setTextColor(ContextCompat.getColor(this, R.color.White));
 			tempToggleButton.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 			
 			tempRadioButtonNoData.setText(R.string.radio_button_text_no_data);
-			tempRadioButtonNoData.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
-			tempRadioButtonNoData.setTextColor(getResources().getColor(R.color.DarkBlue));
+			tempRadioButtonNoData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			tempRadioButtonNoData.setTextColor(ContextCompat.getColor(this, R.color.DarkBlue));
 			tempRadioButtonNoData.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 
 			tempRadioButtonFakeData.setText(R.string.radio_button_text_fake_data);
-			tempRadioButtonFakeData.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
-			tempRadioButtonFakeData.setTextColor(getResources().getColor(R.color.DarkBlue));
+			tempRadioButtonFakeData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			tempRadioButtonFakeData.setTextColor(ContextCompat.getColor(this, R.color.DarkBlue));
 			tempRadioButtonFakeData.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 
 //			tempRadioButtonAnonymizedData.setText(R.string.radio_button_text_anonymous_data);
-//			tempRadioButtonAnonymizedData.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
-//			tempRadioButtonAnonymizedData.setTextColor(getResources().getColor(R.color.DarkBlue));
+//			tempRadioButtonAnonymizedData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+//			tempRadioButtonAnonymizedData.setTextColor(ContextCompat.getColor(this, R.color.DarkBlue));
 //			tempRadioButtonAnonymizedData.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 
 			tempViewPolGroup.setOrientation(RadioGroup.VERTICAL);
@@ -238,7 +371,7 @@ public class PolicyRuleChooserActivity extends Activity {
 			tempTableRow.addView(tempToggleButton);
 			tempTableRow.addView(tempViewPolGroup);
 			tempTableRow.setGravity(Gravity.CENTER_VERTICAL);
-			tempTableRow.setBackgroundColor(getResources().getColor(R.color.LightBlue));
+			tempTableRow.setBackgroundColor(ContextCompat.getColor(this, R.color.LightBlue));
 
 			mTableOfPolicies.addView(tempTableRow);
 
@@ -323,9 +456,9 @@ public class PolicyRuleChooserActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					if(policyViewMap.get(index).isRule())
-						v.setBackgroundColor(getResources().getColor(R.color.Red));
+						v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.Red));
 					else
-						v.setBackgroundColor(getResources().getColor(R.color.Green));
+						v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.Green));
 					togglePolicy(index);
 				}
 			});

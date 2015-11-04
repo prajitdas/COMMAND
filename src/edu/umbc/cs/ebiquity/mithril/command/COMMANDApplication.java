@@ -1,5 +1,6 @@
 package edu.umbc.cs.ebiquity.mithril.command;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -12,6 +13,14 @@ import android.widget.Toast;
  * @author prajit.das
  */
 public class COMMANDApplication extends Application {
+	private static final String [] PermissionsCOMMAND = {
+			Manifest.permission.READ_CONTACTS,
+			Manifest.permission.READ_CALL_LOG,
+			Manifest.permission.WRITE_EXTERNAL_STORAGE,
+			Manifest.permission.READ_EXTERNAL_STORAGE,
+			"com.google.android.providers.gsf.permission.READ_GSERVICES"
+		};
+
 	private static final String CONST_ACCESS_DENIED = "Denied";
 
 	private static final String CONST_ACCESS_GRANTED = "Granted";
@@ -49,6 +58,16 @@ public class COMMANDApplication extends Application {
 	private static final String CONST_VIDEOS = "videos";
 
 	private static final String DEBUG_TAG = "COMANDDApplicationDebugTag";
+	
+	private static final int CONST_PERMISSION_READ_CONTACTS = 1;
+
+	private static final int CONST_PERMISSION_READ_CALL_LOG = 1;
+	
+	private static final int CONST_PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
+	
+	private static final int CONST_PERMISSION_READ_EXTERNAL_STORAGE = 1;
+	
+	private static final int CONST_PERMISSION_READ_GSERVICES = 1;
 
 	private static COMMANDApplication singleton;
 
@@ -162,5 +181,29 @@ public class COMMANDApplication extends Application {
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
+	}
+
+	public static int getConstPermissionReadContacts() {
+		return CONST_PERMISSION_READ_CONTACTS;
+	}
+
+	public static int getConstPermissionReadCallLog() {
+		return CONST_PERMISSION_READ_CALL_LOG;
+	}
+
+	public static int getConstPermissionWriteExternalStorage() {
+		return CONST_PERMISSION_WRITE_EXTERNAL_STORAGE;
+	}
+
+	public static int getConstPermissionReadExternalStorage() {
+		return CONST_PERMISSION_READ_EXTERNAL_STORAGE;
+	}
+
+	public static int getConstPermissionReadGservices() {
+		return CONST_PERMISSION_READ_GSERVICES;
+	}
+
+	public static String [] getPermissionsCOMMAND() {
+		return PermissionsCOMMAND;
 	}
 }

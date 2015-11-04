@@ -21,6 +21,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import edu.umbc.cs.ebiquity.mithril.command.COMMANDApplication;
 import edu.umbc.cs.ebiquity.mithril.command.R;
@@ -77,7 +78,7 @@ public class Images extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(CREATE_DB_TABLE);
-			loaDefaultData(db, ((BitmapDrawable) context.getResources().getDrawable(R.drawable.dummy)).getBitmap());
+			loaDefaultData(db, ((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.dummy)).getBitmap());
 //		    if(MediaScannerBroadcastReceiver.mMediaScanning)
 //		    	addDefaultData(db, "712");//imageUri.getLastPathSegment().toString());
 //		    	addDefaultData(db, "1535");//imageUri.getLastPathSegment().toString());
