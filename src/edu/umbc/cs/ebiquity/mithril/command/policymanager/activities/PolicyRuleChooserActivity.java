@@ -54,6 +54,8 @@ public class PolicyRuleChooserActivity extends Activity {
 	private ArrayList<RadioButton> mRadioButtons;
 	private ArrayList<RadioGroup> mRadioGroups;
 	
+	private Intent policy;
+	
 	private SparseArray<PolicyInfo> policyViewMap;
 	
 	private static int viewCount;
@@ -76,8 +78,22 @@ public class PolicyRuleChooserActivity extends Activity {
 		instantiateViews();
 		addOnClickListener();
 		checkMarshMallowPermissions();
+//		handleIntentFromFramework();
 	}
 	
+	private void handleIntentFromFramework() {
+		// Get the intent that started this activity 
+		Intent intent = getIntent();
+		Uri data = intent.getData();
+		 
+		// Figure out what to do based on the intent type 
+		if (intent.getType().indexOf("image/") != -1) {
+		// Handle intents with image data ... 
+		} else if (intent.getType().equals("text/plain")) {
+		// Handle intents with text ... 
+		}
+	}
+
 	/**
 	 * Since we are using Marshmallow we have to check for these permissions now 
 	 * <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -216,6 +232,8 @@ public class PolicyRuleChooserActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		setResult(Activity.RESULT_OK, policy);
+		finish();
 	}
 
 	@Override
@@ -234,6 +252,8 @@ public class PolicyRuleChooserActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		db.close();
+		setResult(Activity.RESULT_OK, policy);
+		finish();
 	}
 
 	@Override
@@ -508,5 +528,15 @@ public class PolicyRuleChooserActivity extends Activity {
 		} catch (NumberFormatException e) {
 			return null;
 		}
+	}
+
+	public Intent getPolicy() {
+		return policy;
+	}
+
+	public void setPolicy(int resultCode) {
+		// Create intent to deliver some kind of result data
+		policy = new Intent("edu.umbc.cs.ebiquity.mithril.command", Uri.parse("content://edu.umbc.cs.ebiquity.mithril.command/policy"));
+		policy.putExtra("response", resultCode);
 	}
 }

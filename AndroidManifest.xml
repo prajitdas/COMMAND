@@ -49,9 +49,12 @@ Author: prajit.das
         <activity
             android:name=".policymanager.activities.PolicyRuleChooserActivity"
             android:label="@string/policy_chooser_activity_name" >
-            <intent-filter android:label="@string/app_name" >
-                <action android:name="android.intent.action.MAIN" />
-
+           	<intent-filter android:label="@string/app_name">
+           	    <action android:name="edu.umbc.cs.ebiquity.mithril.command.action.CHOOSE_POLICY"/>
+           	    <category android:name="android.intent.category.DEFAULT"/>
+			</intent-filter>
+			<intent-filter android:label="@string/app_name" >
+               	<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
