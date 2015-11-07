@@ -106,10 +106,13 @@ public class PolicyRuleChooserActivity extends Activity {
 	 * <!-- Unusual but true! -->
 	 */
 	private void checkMarshMallowPermissions() {
-		checkReadContactsPermission();
-		checkReadCallLogsPermission();
-		checkReadExternalStoragePermission();
-		checkWriteExternalStoragePermission();
+		if (android.os.Build.VERSION.SDK_INT >= 23) {
+			checkReadContactsPermission();
+			checkReadCallLogsPermission();
+			checkReadExternalStoragePermission();
+			checkWriteExternalStoragePermission();
+		     // only for Marshmallow and newer versions 
+		}
 	}
 
 	private void checkReadExternalStoragePermission() {
