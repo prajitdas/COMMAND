@@ -2,7 +2,6 @@ package edu.umbc.cs.ebiquity.mithril.command.policymanager.activities;
 
 import java.util.ArrayList;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -14,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.SparseArray;
@@ -41,7 +39,6 @@ import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.PolicyInfo;
  * @author prajit.das
  */
 public class PolicyRuleChooserActivity extends Activity {
-	private String [] permissionsList = COMMANDApplication.getPermissionsCOMMAND();
 	private Button mBtnDBOps;
 	private TableLayout mTableOfPolicies;
 //	private TextView mLargeTextView;
@@ -53,8 +50,6 @@ public class PolicyRuleChooserActivity extends Activity {
 	private ArrayList<ToggleButton> mToggleButtons;
 	private ArrayList<RadioButton> mRadioButtons;
 	private ArrayList<RadioGroup> mRadioGroups;
-	
-	private Intent policy;
 	
 	private SparseArray<PolicyInfo> policyViewMap;
 	
@@ -77,132 +72,10 @@ public class PolicyRuleChooserActivity extends Activity {
 		
 		instantiateViews();
 		addOnClickListener();
-		checkMarshMallowPermissions();
+//		checkMarshMallowPermissions();
 //		handleIntentFromFramework();
 	}
 	
-	private void handleIntentFromFramework() {
-		// Get the intent that started this activity 
-		Intent intent = getIntent();
-		Uri data = intent.getData();
-		 
-		// Figure out what to do based on the intent type 
-		if (intent.getType().indexOf("image/") != -1) {
-		// Handle intents with image data ... 
-		} else if (intent.getType().equals("text/plain")) {
-		// Handle intents with text ... 
-		}
-	}
-
-	/**
-	 * Since we are using Marshmallow we have to check for these permissions now 
-	 * <uses-permission android:name="android.permission.READ_CONTACTS" />
-	 * <uses-permission android:name="android.permission.READ_CALL_LOG" />
-	 * <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	 * The next one isn't a dangerous permission so why care?
-	 * <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-	 * <!-- Required permission not required at or below Android 4.3 API level -->
-	 * <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	 * <!-- Unusual but true! -->
-	 */
-	private void checkMarshMallowPermissions() {
-		if (android.os.Build.VERSION.SDK_INT >= 23) {
-			checkReadContactsPermission();
-			checkReadCallLogsPermission();
-			checkReadExternalStoragePermission();
-			checkWriteExternalStoragePermission();
-		     // only for Marshmallow and newer versions 
-		}
-	}
-
-	private void checkReadExternalStoragePermission() {
-		String [] tempList = {permissionsList[0]}; 
-		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
-				// Show an expanation to the user *asynchronously* -- don't block
-				// this thread waiting for the user's response! After the user
-				// sees the explanation, try again to request the permission.
-			} 
-			else {
-				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadExternalStorage());
-				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
-				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-				// app-defined int constant. The callback method gets the
-				// result of the request.
-			}
-		}
-	}
-
-	private void checkReadCallLogsPermission() {
-		String [] tempList = {permissionsList[0]}; 
-		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALL_LOG)) {
-				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
-				// Show an expanation to the user *asynchronously* -- don't block
-				// this thread waiting for the user's response! After the user
-				// sees the explanation, try again to request the permission.
-			} 
-			else {
-				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadCallLog());
-				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
-				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-				// app-defined int constant. The callback method gets the
-				// result of the request.
-			}
-		}
-	}
-
-	private void checkWriteExternalStoragePermission() {
-		String [] tempList = {permissionsList[0]}; 
-		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
-				// Show an expanation to the user *asynchronously* -- don't block
-				// this thread waiting for the user's response! After the user
-				// sees the explanation, try again to request the permission.
-			} 
-			else {
-				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionWriteExternalStorage());
-				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
-				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-				// app-defined int constant. The callback method gets the
-				// result of the request.
-			}
-		}
-	}
-
-	private void checkReadContactsPermission() {
-		String [] tempList = {permissionsList[0]}; 
-		// Here, thisActivity is the current activity
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
-				// Show an expanation to the user *asynchronously* -- don't block
-				// this thread waiting for the user's response! After the user
-				// sees the explanation, try again to request the permission.
-			} 
-			else {
-				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this, tempList, COMMANDApplication.getConstPermissionReadContacts());
-				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
-				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-				// app-defined int constant. The callback method gets the
-				// result of the request.
-			}
-		}
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -213,8 +86,8 @@ public class PolicyRuleChooserActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		setResult(Activity.RESULT_OK, policy);
-		finish();
+//		setResult(Activity.RESULT_OK, policy);
+//		finish();
 	}
 
 	@Override
@@ -233,8 +106,8 @@ public class PolicyRuleChooserActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		db.close();
-		setResult(Activity.RESULT_OK, policy);
-		finish();
+//		setResult(Activity.RESULT_OK, policy);
+//		finish();
 	}
 
 	@Override
@@ -509,15 +382,5 @@ public class PolicyRuleChooserActivity extends Activity {
 		} catch (NumberFormatException e) {
 			return null;
 		}
-	}
-
-	public Intent getPolicy() {
-		return policy;
-	}
-
-	public void setPolicy(int resultCode) {
-		// Create intent to deliver some kind of result data
-		policy = new Intent("edu.umbc.cs.ebiquity.mithril.command", Uri.parse("content://edu.umbc.cs.ebiquity.mithril.command/policy"));
-		policy.putExtra("response", resultCode);
 	}
 }
