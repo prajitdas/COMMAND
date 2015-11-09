@@ -3,26 +3,13 @@ package edu.umbc.cs.ebiquity.mithril.command.policymanager.util;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import edu.umbc.cs.ebiquity.mithril.command.COMMANDApplication;
 
-public class CheckPermissionsHelper {
-	private Context context;
-	private String [] permissionsList = COMMANDApplication.getPermissionsCOMMAND();
-	private Intent policy;
-	private Activity callingActivity;
-	
-	public CheckPermissionsHelper(Context activityContext, Activity activity) {
-		super();
-		context = activityContext;
-		callingActivity = activity;
-	}
-
+public final class CheckPermissionsHelper {
 	/**
 	 * Since we are using Marshmallow we have to check for these permissions now 
 	 * <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -34,23 +21,22 @@ public class CheckPermissionsHelper {
 	 * <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	 * <!-- Unusual but true! -->
 	 */
-	@SuppressWarnings("unused")
-	private void checkMarshMallowPermissions() {
+	public static void checkMarshMallowPermissions(Context context, Activity activity) {
 		if (android.os.Build.VERSION.SDK_INT >= 23) {
-			checkReadContactsPermission();
-			checkReadCallLogsPermission();
-			checkReadExternalStoragePermission();
-			checkWriteExternalStoragePermission();
+			checkReadContactsPermission(context, activity);
+			checkReadCallLogsPermission(context, activity);
+			checkReadExternalStoragePermission(context, activity);
+			checkWriteExternalStoragePermission(context, activity);
 		     // only for Marshmallow and newer versions 
 		}
 	}
 
-	private void checkReadExternalStoragePermission() {
-		String [] tempList = {permissionsList[0]}; 
+	public static void checkReadExternalStoragePermission(Context context, Activity activity) {
+		String[] tempList = new String[]{COMMANDApplication.getPermissionsCOMMAND()[3]};
 		// Here, contextActivity is the current activity
 		if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(callingActivity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// context thread waiting for the user's response! After the user
@@ -58,7 +44,7 @@ public class CheckPermissionsHelper {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(callingActivity, tempList, COMMANDApplication.getConstPermissionReadExternalStorage());
+				ActivityCompat.requestPermissions(activity, tempList, COMMANDApplication.getConstPermissionReadExternalStorage());
 				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the
@@ -67,12 +53,12 @@ public class CheckPermissionsHelper {
 		}
 	}
 
-	private void checkReadCallLogsPermission() {
-		String [] tempList = {permissionsList[0]}; 
+	public static void checkReadCallLogsPermission(Context context, Activity activity) {
+		String[] tempList = new String[]{COMMANDApplication.getPermissionsCOMMAND()[1]};
 		// Here, contextActivity is the current activity
 		if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(callingActivity, Manifest.permission.READ_CALL_LOG)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_CALL_LOG)) {
 				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// context thread waiting for the user's response! After the user
@@ -80,7 +66,7 @@ public class CheckPermissionsHelper {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(callingActivity, tempList, COMMANDApplication.getConstPermissionReadCallLog());
+				ActivityCompat.requestPermissions(activity, tempList, COMMANDApplication.getConstPermissionReadCallLog());
 				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the
@@ -89,12 +75,12 @@ public class CheckPermissionsHelper {
 		}
 	}
 
-	private void checkWriteExternalStoragePermission() {
-		String [] tempList = {permissionsList[0]}; 
+	public static void checkWriteExternalStoragePermission(Context context, Activity activity) {
+		String[] tempList = new String[]{COMMANDApplication.getPermissionsCOMMAND()[2]};
 		// Here, contextActivity is the current activity
 		if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(callingActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// context thread waiting for the user's response! After the user
@@ -102,7 +88,7 @@ public class CheckPermissionsHelper {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(callingActivity, tempList, COMMANDApplication.getConstPermissionWriteExternalStorage());
+				ActivityCompat.requestPermissions(activity, tempList, COMMANDApplication.getConstPermissionWriteExternalStorage());
 				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the
@@ -111,12 +97,12 @@ public class CheckPermissionsHelper {
 		}
 	}
 
-	private void checkReadContactsPermission() {
-		String [] tempList = {permissionsList[0]}; 
+	public static void checkReadContactsPermission(Context context, Activity activity) {
+		String[] tempList = new String[]{COMMANDApplication.getPermissionsCOMMAND()[0]};
 		// Here, contextActivity is the current activity
 		if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 			// Should we show an explanation?
-			if (ActivityCompat.shouldShowRequestPermissionRationale(callingActivity, Manifest.permission.READ_CONTACTS)) {
+			if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_CONTACTS)) {
 				Log.d(COMMANDApplication.getDebugTag(),"shouldShowRequestPermissionRationale");
 				// Show an expanation to the user *asynchronously* -- don't block
 				// context thread waiting for the user's response! After the user
@@ -124,21 +110,12 @@ public class CheckPermissionsHelper {
 			} 
 			else {
 				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(callingActivity, tempList, COMMANDApplication.getConstPermissionReadContacts());
+				ActivityCompat.requestPermissions(activity, tempList, COMMANDApplication.getConstPermissionReadContacts());
 				Log.d(COMMANDApplication.getDebugTag(),"requestPermissions");
 				// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
 				// app-defined int constant. The callback method gets the
 				// result of the request.
 			}
 		}
-	}
-	public Intent getPolicy() {
-		return policy;
-	}
-
-	public void setPolicy(int resultCode) {
-		// Create intent to deliver some kind of result data
-		policy = new Intent("edu.umbc.cs.ebiquity.mithril.command", Uri.parse("content://edu.umbc.cs.ebiquity.mithril.command/policy"));
-		policy.putExtra("response", resultCode);
 	}
 }

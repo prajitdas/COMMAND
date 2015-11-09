@@ -31,6 +31,7 @@ import android.widget.ToggleButton;
 import edu.umbc.cs.ebiquity.mithril.command.COMMANDApplication;
 import edu.umbc.cs.ebiquity.mithril.command.R;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.PolicyDBHelper;
+import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.CheckPermissionsHelper;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.PolicyInfo;
 /**
  * @purpose: Activity to control the policies that are being implemented on the phone
@@ -72,8 +73,7 @@ public class PolicyRuleChooserActivity extends Activity {
 		
 		instantiateViews();
 		addOnClickListener();
-//		checkMarshMallowPermissions();
-//		handleIntentFromFramework();
+		CheckPermissionsHelper.checkMarshMallowPermissions(getApplicationContext(),this);
 	}
 	
 	@Override
@@ -86,8 +86,6 @@ public class PolicyRuleChooserActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-//		setResult(Activity.RESULT_OK, policy);
-//		finish();
 	}
 
 	@Override
@@ -106,8 +104,6 @@ public class PolicyRuleChooserActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		db.close();
-//		setResult(Activity.RESULT_OK, policy);
-//		finish();
 	}
 
 	@Override
