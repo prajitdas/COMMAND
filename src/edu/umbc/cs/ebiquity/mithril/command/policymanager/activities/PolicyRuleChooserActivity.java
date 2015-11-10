@@ -141,6 +141,7 @@ public class PolicyRuleChooserActivity extends Activity {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void addTableRow() {
 		TableRow tblRow = new TableRow(this);
 		TextView mTextViewPolicyStmt = new TextView(this);
@@ -148,19 +149,28 @@ public class PolicyRuleChooserActivity extends Activity {
 		TextView mTextViewPolicyLevl = new TextView(this);
 		
 		mTextViewPolicyStmt.setText(R.string.text_view_policy_conditions);
-		mTextViewPolicyStmt.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+		if (android.os.Build.VERSION.SDK_INT >= 23)
+			mTextViewPolicyStmt.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+		else
+			mTextViewPolicyStmt.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
 		mTextViewPolicyStmt.setTypeface(Typeface.SERIF, Typeface.BOLD);
 		mTextViewPolicyStmt.setGravity(Gravity.CENTER);
 		mTextViewPolicyStmt.setTextColor(ContextCompat.getColor(this, R.color.WhiteSmoke));
 		
 		mTextViewPolicyValu.setText(R.string.text_view_policy_setting);
-		mTextViewPolicyValu.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+		if (android.os.Build.VERSION.SDK_INT >= 23)
+			mTextViewPolicyStmt.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+		else
+			mTextViewPolicyStmt.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
 		mTextViewPolicyValu.setTypeface(Typeface.SERIF, Typeface.BOLD);
 		mTextViewPolicyValu.setGravity(Gravity.CENTER);
 		mTextViewPolicyValu.setTextColor(ContextCompat.getColor(this, R.color.WhiteSmoke));
 		
 		mTextViewPolicyLevl.setText(R.string.text_view_policy_level);
-		mTextViewPolicyLevl.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+		if (android.os.Build.VERSION.SDK_INT >= 23)
+			mTextViewPolicyStmt.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+		else
+			mTextViewPolicyStmt.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
 		mTextViewPolicyLevl.setTypeface(Typeface.SERIF, Typeface.BOLD);
 		mTextViewPolicyLevl.setGravity(Gravity.CENTER);
 		mTextViewPolicyLevl.setTextColor(ContextCompat.getColor(this, R.color.WhiteSmoke));
@@ -172,6 +182,7 @@ public class PolicyRuleChooserActivity extends Activity {
 		mTableOfPolicies.addView(tblRow);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void addTableRow(PolicyInfo aPolicyRule) {
 		if(aPolicyRule!=null){
 			policyViewMap.put(viewCount++, aPolicyRule);
@@ -202,12 +213,24 @@ public class PolicyRuleChooserActivity extends Activity {
 			tempToggleButton.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 			
 			tempRadioButtonNoData.setText(R.string.radio_button_text_no_data);
-			tempRadioButtonNoData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			
+			if (android.os.Build.VERSION.SDK_INT >= 23)
+				tempRadioButtonNoData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			else
+				tempRadioButtonNoData.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+			if (android.os.Build.VERSION.SDK_INT >= 23)
+				tempRadioButtonNoData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			else
+				tempRadioButtonNoData.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
+			
 			tempRadioButtonNoData.setTextColor(ContextCompat.getColor(this, R.color.DarkBlue));
 			tempRadioButtonNoData.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 
 			tempRadioButtonFakeData.setText(R.string.radio_button_text_fake_data);
-			tempRadioButtonFakeData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			if (android.os.Build.VERSION.SDK_INT >= 23)
+				tempRadioButtonFakeData.setTextAppearance(android.R.style.TextAppearance_DeviceDefault_Small);
+			else
+				tempRadioButtonFakeData.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Small);
 			tempRadioButtonFakeData.setTextColor(ContextCompat.getColor(this, R.color.DarkBlue));
 			tempRadioButtonFakeData.setTypeface(Typeface.SERIF, Typeface.NORMAL);
 
