@@ -22,12 +22,12 @@ Author: prajit.das
     android:versionCode="1"
     android:versionName="1.0" >
 
-	<permission
+    <permission
         android:name="android.permission.command.READ_WRITE_CONTENT"
         android:description="@string/permdesc_read_write_content"
         android:label="@string/permlabel_read_write_content"
         android:protectionLevel="normal" />
-    
+
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="23" />
@@ -35,13 +35,13 @@ Author: prajit.das
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!-- Required permission not required at or below Android 4.3 API level -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- Unusual but true! -->
-	
+
     <application
-        android:name="edu.umbc.cs.ebiquity.mithril.command.COMMANDApplication"
+        android:name=".COMMANDApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -49,12 +49,14 @@ Author: prajit.das
         <activity
             android:name=".policymanager.activities.PolicyRuleChooserActivity"
             android:label="@string/policy_chooser_activity_name" >
-           	<intent-filter android:label="@string/app_name">
-           	    <action android:name="edu.umbc.cs.ebiquity.mithril.command.action.CHOOSE_POLICY"/>
-           	    <category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-			<intent-filter android:label="@string/app_name" >
-               	<action android:name="android.intent.action.MAIN" />
+            <intent-filter android:label="@string/app_name" >
+                <action android:name="edu.umbc.cs.ebiquity.mithril.command.action.CHOOSE_POLICY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:label="@string/app_name" >
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -74,12 +76,13 @@ Author: prajit.das
             android:name=".policymanager.activities.DBOpsActivity"
             android:label="@string/title_activity_dbops" >
         </activity>
+
         <provider
             android:name=".contentprovider.COMMANDContentProvider"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.contentprovider.Content"
             android:exported="true"
             android:label="@string/command_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <!-- Fake content providers -->
         <provider
@@ -87,108 +90,114 @@ Author: prajit.das
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakeandroidid"
             android:exported="true"
             android:label="@string/command_fake_android_id_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.CallLogs"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakecalls"
             android:exported="true"
             android:label="@string/command_fake_calllogs_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Contacts"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakecontacts"
             android:exported="true"
             android:label="@string/command_fake_contact_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Images"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakeimages"
             android:exported="true"
             android:label="@string/command_fake_image_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT"> 
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Videos"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakevideos"
             android:exported="true"
             android:label="@string/command_fake_video_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Audios"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakeaudios"
             android:exported="true"
             android:label="@string/command_fake_audio_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.fakecontentproviders.Files"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.fakecontentprovider.Content.fakefiles"
             android:exported="true"
             android:label="@string/command_fake_file_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
-        
+
         <!-- Anonymized content providers -->
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.AndroidId"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedandroidid"
             android:exported="true"
             android:label="@string/command_anonymized_android_id_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.CallLogs"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedcalls"
             android:exported="true"
             android:label="@string/command_anonymized_calllogs_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Contacts"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedcontacts"
             android:exported="true"
             android:label="@string/command_anonymized_contact_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Images"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedimages"
             android:exported="true"
             android:label="@string/command_anonymized_image_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Videos"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedvideos"
             android:exported="true"
             android:label="@string/command_anonymized_video_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Audios"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedaudios"
             android:exported="true"
             android:label="@string/command_anonymized_audio_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
         <provider
             android:name=".contentprovider.util.anonymizedcontentproviders.Files"
             android:authorities="edu.umbc.cs.ebiquity.mithril.command.anonymizedcontentprovider.Content.anonymizedfiles"
             android:exported="true"
             android:label="@string/command_anonymized_file_content_provider_label"
-            android:permission="android.permission.command.READ_WRITE_CONTENT">
+            android:permission="android.permission.command.READ_WRITE_CONTENT" >
         </provider>
-<!-- 		<receiver android:name=".contentprovider.util.MediaScannerBroadcastReceiver">
+        <!--
+     		<receiver android:name=".contentprovider.util.MediaScannerBroadcastReceiver">
 			<intent-filter>
 				<action android:name="android.intent.action.MEDIA_SCANNER_FINISHED"></action>
 				<action android:name="android.intent.action.MEDIA_SCANNER_STARTED"></action>
 				<data android:scheme="file"></data>	
 			</intent-filter>
 		</receiver>
- -->	</application>
+        -->
+        <activity
+            android:name="edu.umbc.cs.ebiquity.mithril.command.policymanager.activities.DisplayAllServicesActivity"
+            android:label="@string/title_activity_display_all_services" >
+        </activity>
+    </application>
 
 </manifest>

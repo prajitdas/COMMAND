@@ -25,6 +25,7 @@
     <string name="command_anonymized_file_content_provider_label">COMMAND Anonymized File Content Provider</string>
     <string name="showPols">Policies</string>
     <string name="showApps">Applications</string>
+    <string name="showServs">Services</string>
     <string name="showPros">Providers</string>
     <string name="delData">Delete Data and Load Default</string>
     <string name="DBOps">Database Operations</string>
@@ -48,4 +49,7 @@
     <string name="dialog_resp_NO">No</string>
     <string name="largeSampleTextForListView">Large Text</string>
     <string name="smallSampleTextForListView">Small Text</string>
+    <string name="title_activity_display_all_services">DisplayAllServicesActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

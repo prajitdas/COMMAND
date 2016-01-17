@@ -14,6 +14,7 @@ import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.AppInfo;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.DefaultDataLoader;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.PolicyInfo;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.ProvInfo;
+import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.ServInfo;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.UserContext;
 /**
  * @purpose: This DB Helper stores all the policies, provider information, application information associated with the phone.
@@ -36,6 +37,14 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 	private final static String APPLABEL = "label";
 	private final static String APPPACK = "package";
 	private final static String APPPERM = "permissions";
+	
+	private final static String SERVID = "id";
+	private final static String SERVLABEL = "label";
+	private final static String SERVNAME = "name";
+	private final static String SERVENABLED = "enabled";
+	private final static String SERVEXPORTED = "exported";
+	private final static String SERVPROCESS = "process";
+	private final static String SERVPERM = "permission";
 	
 	private final static String PROVID = "id";
 	private final static String PROVLABEL = "label";
@@ -60,10 +69,12 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 
 	private final static String APPLICATION_TABLE_NAME = "applications";
 	private final static String PROVIDER_TABLE_NAME = "providers";
+	private final static String SERVICE_TABLE_NAME = "services";
 	private final static String POLICY_TABLE_NAME = "policies";
 	
 	private final static String APPLICATION_TABLE_INDEX = "appindex";
 	private final static String PROVIDER_TABLE_INDEX = "provindex";
+	private final static String SERVICE_TABLE_INDEX = "servindex";
 //	private final static String POLICY_TABLE_INDEX = "polindex";
 	
 	private Context context;
@@ -98,9 +109,29 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 			PROVPRO + " TEXT NOT NULL, " + //Should be "unique" has been set not unique because it seems some of the providers are repeating TODO figure this out
 			PROVAUTH + " TEXT, " + //Should be "not null" has been set null because it seems some of the providers do not have an authority
 			PROVREADPERM + " TEXT, " +
-			PROVWRITEPERM+ " TEXT, " +
+			PROVWRITEPERM + " TEXT, " +
 			"UNIQUE("+PROVPRO+", "+PROVAUTH+"));";
 
+	/**
+	 * The services installed on the phone
+	 * Table has the following columns:-
+	 * SERVID
+	 * SERVLABEL
+	 * SERVNAME
+	 * SERVENABLED
+	 * SERVEXPORTED
+	 * SERVPROCESS
+	 * SERVPERM
+	 */
+	private final static String CREATE_SERVICE_TABLE = " CREATE TABLE " + SERVICE_TABLE_NAME + " (" + 
+			SERVID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+			SERVLABEL + " TEXT NOT NULL UNIQUE, " +
+			SERVNAME + " TEXT NOT NULL UNIQUE, " +
+			SERVENABLED + " INTEGER DEFAULT 0, " +
+			SERVEXPORTED + " INTEGER DEFAULT 0, " +
+			SERVPROCESS + " TEXT, " +
+			SERVPERM + " TEXT);";
+	
 	/**
 	 *  The policies that are installed by default on the phone.
 	 *  The table has the following columns:-
@@ -145,6 +176,10 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 			PROVIDER_TABLE_INDEX + " ON " + 
 			PROVIDER_TABLE_NAME + " (" + PROVAUTH + ");";
 	
+	private final static String CREATE_SERVICES_INDEX = " CREATE INDEX " +
+			SERVICE_TABLE_INDEX + " ON " + 
+			SERVICE_TABLE_NAME + " (" + SERVNAME + ");";
+	
 	private static DefaultDataLoader defaultDataLoader;
 	
 	/**
@@ -159,6 +194,9 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 		//loads the providers
 		for(ProvInfo aProvider : defaultDataLoader.getProviders())
 			addProvider(db, aProvider);
+		//loads the services
+		for(ServInfo aService : defaultDataLoader.getServices())
+			addService(db, aService);
 		//loads the policies, this is the interesting part and can be used to load
 		//a default set of policies from an xml resource or a web service
 		for(PolicyInfo aPolicyRule : defaultDataLoader.getPolicies())
@@ -264,6 +302,30 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 		return 1;
 	}
 
+
+	/**
+	 * method to insert into service table the service
+	 * @param db
+	 * @param aService
+	 * @return
+	 */
+	public int addService(SQLiteDatabase db, ServInfo aService) {
+		ContentValues values = new ContentValues();
+		values.put(SERVLABEL, aService.getServiceLabel());
+		values.put(SERVNAME, aService.getServiceName());
+		values.put(SERVENABLED, aService.isEnabled());
+		values.put(SERVEXPORTED, aService.isExported());
+		values.put(SERVPROCESS, aService.getProcess());
+		values.put(SERVPERM, aService.getPermission());
+		try {
+			db.insert(SERVICE_TABLE_NAME, null, values);
+		} catch (SQLException e) {
+	        Log.e(COMMANDApplication.getDebugTag(), "Error inserting " + values, e);
+	        return -1;
+		}
+		return 1;
+	}
+	
 	/**
 	 * method to delete a row from a table based on the identifier 
 	 * @param db
@@ -292,6 +354,16 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 	public void deleteProvider(SQLiteDatabase db, ProvInfo aProvider) {
 		db.delete(PROVIDER_TABLE_NAME, PROVID + " = ?",
 				new String[] { String.valueOf(aProvider.getId()) });
+	}
+
+	/**
+	 * method to delete a row from a table based on the identifier
+	 * @param db
+	 * @param aService
+	 */
+	public void deleteProvider(SQLiteDatabase db, ServInfo aService) {
+		db.delete(SERVICE_TABLE_NAME, SERVID + " = ?",
+				new String[] { String.valueOf(aService.getId()) });
 	}
 
 	/**
@@ -509,6 +581,42 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 	}
 
 	/**
+	 * Getting all services
+	 * @param db
+	 * @return
+	 */
+	public ArrayList<ServInfo> findAllServices(SQLiteDatabase db) {
+		ArrayList<ServInfo> services = new ArrayList<ServInfo>();
+		// Select All Query
+		String selectQuery = "SELECT * FROM " + SERVICE_TABLE_NAME + ";";
+
+		try{
+			Cursor cursor = db.rawQuery(selectQuery, null);
+	
+			// looping through all rows and adding to list
+			if (cursor.moveToFirst()) {
+				do {
+					ServInfo service = new ServInfo(
+							Integer.parseInt(cursor.getString(0)),
+							cursor.getString(1),
+							cursor.getString(2),
+							((Integer.parseInt(cursor.getString(3)) == 1) ? true : false),
+							((Integer.parseInt(cursor.getString(4)) == 1) ? true : false),
+							cursor.getString(5),
+							cursor.getString(6));
+					Log.v(COMMANDApplication.getDebugTag(), service.toString());
+					// Adding providers to list
+					services.add(service);
+				} while (cursor.moveToNext());
+			}
+		} catch(SQLException e) {
+	        throw new SQLException("Could not find " + e);
+		}
+		// return policy rules list
+		return services;
+	}
+	
+	/**
 	 * Getting all applications
 	 * @param db
 	 * @return
@@ -549,6 +657,8 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_APPLICATIONS_INDEX);
 		db.execSQL(CREATE_PROVIDER_TABLE);
 		db.execSQL(CREATE_PROVIDERS_INDEX);
+		db.execSQL(CREATE_SERVICE_TABLE);
+		db.execSQL(CREATE_SERVICES_INDEX);
 		db.execSQL(CREATE_POLICY_TABLE);
 		//The following method loads the database with the default data on creation of the database
 		loadDefaultPoliciesIntoDB(db);
@@ -570,11 +680,17 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 		dropDBObjects(db);
 	}
 
+	/**
+	 * Point to note!! You cannot drop an index before you drop a table. If it seems a bit counter intuitive then you are thinking is wrong.
+	 * @param db
+	 */
 	private void dropDBObjects(SQLiteDatabase db) {
 		db.execSQL("DROP TABLE IF EXISTS " +  APPLICATION_TABLE_NAME);
 		db.execSQL("DROP INDEX IF EXISTS " + APPLICATION_TABLE_INDEX);
 		db.execSQL("DROP TABLE IF EXISTS " +  PROVIDER_TABLE_NAME);
 		db.execSQL("DROP INDEX IF EXISTS " + PROVIDER_TABLE_INDEX);
+		db.execSQL("DROP TABLE IF EXISTS " + SERVICE_TABLE_NAME);
+		db.execSQL("DROP INDEX IF EXISTS " + SERVICE_TABLE_INDEX);
 		db.execSQL("DROP TABLE IF EXISTS " +  POLICY_TABLE_NAME);
 		onCreate(db);
 	}
@@ -627,5 +743,23 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 		values.put(PROVWRITEPERM, aProvider.getWritePermission());
 		return db.update(PROVIDER_TABLE_NAME, values, PROVID + " = ?", 
 				new String[] { String.valueOf(aProvider.getId()) });
+	}
+
+	/**
+	 * method to update single service
+	 * @param db
+	 * @param aProvider
+	 * @return
+	 */
+	public int updateService(SQLiteDatabase db, ServInfo aService) {
+		ContentValues values = new ContentValues();
+		values.put(SERVLABEL, aService.getServiceLabel());
+		values.put(SERVNAME, aService.getServiceName());
+		values.put(SERVENABLED, aService.isEnabled());
+		values.put(SERVEXPORTED, aService.isExported());
+		values.put(SERVPROCESS, aService.getProcess());
+		values.put(SERVPERM, aService.getPermission());
+		return db.update(SERVICE_TABLE_NAME, values, SERVID + " = ?", 
+				new String[] { String.valueOf(aService.getId()) });
 	}
 }

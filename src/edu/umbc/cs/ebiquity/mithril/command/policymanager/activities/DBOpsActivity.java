@@ -27,6 +27,7 @@ public class DBOpsActivity extends Activity {
 	private Button mBtnShowAllPolicies;
 	private Button mBtnShowAllApplications;
 	private Button mBtnShowAllProviders;
+	private Button mBtnShowAllServices;
 	private Button mBtnDelData;
 	private PolicyDBHelper db;
 	private SQLiteDatabase database;
@@ -81,6 +82,15 @@ public class DBOpsActivity extends Activity {
 			}
 		});
 		
+		mBtnShowAllServices.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), DisplayAllServicesActivity.class);
+				startActivity(intent);
+			}
+		});
+		
 		mBtnDelData.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -112,6 +122,7 @@ public class DBOpsActivity extends Activity {
 		mBtnShowAllPolicies = (Button) findViewById(R.id.btnShowPols);
 		mBtnShowAllApplications = (Button) findViewById(R.id.btnShowApps);
 		mBtnShowAllProviders = (Button) findViewById(R.id.btnShowPros);
+		mBtnShowAllServices = (Button) findViewById(R.id.btnShowServs);
 		mBtnDelData = (Button) findViewById(R.id.btnDelData);
 	}
 
