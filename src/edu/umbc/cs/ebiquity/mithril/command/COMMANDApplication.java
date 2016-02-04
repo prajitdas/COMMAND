@@ -21,6 +21,10 @@ public class COMMANDApplication extends Application {
 			"com.google.android.providers.gsf.permission.READ_GSERVICES"
 		};
 
+	private static final String DATABASE_NAME = "COMMAND";
+	
+	private static final int DATABASE_VERSION = 1;
+	
 	private static final int CONST_PERMISSION_READ_CONTACTS = 1;
 
 	private static final int CONST_PERMISSION_READ_CALL_LOG = 1;
@@ -103,15 +107,15 @@ public class COMMANDApplication extends Application {
 		return CONST_CALL_LOGS;
 	}
 
-	public static String getConstContacts() {
-		return CONST_CONTACTS;
-	}
-
 	/**
 	 * @return the constCOMMANDAppBroadcastIntent
 	 */
 	public static String getConstCOMMANDAppBroadcastIntent() {
 		return CONST_COMMAND_APP_BROADCAST_INTENT;
+	}
+
+	public static String getConstContacts() {
+		return CONST_CONTACTS;
 	}
 
 	public static String getConstEbAndMWAuthority() {
@@ -134,6 +138,26 @@ public class COMMANDApplication extends Application {
 		return CONST_IMAGES;
 	}
 
+	public static int getConstPermissionReadCallLog() {
+		return CONST_PERMISSION_READ_CALL_LOG;
+	}
+
+	public static int getConstPermissionReadContacts() {
+		return CONST_PERMISSION_READ_CONTACTS;
+	}
+
+	public static int getConstPermissionReadExternalStorage() {
+		return CONST_PERMISSION_READ_EXTERNAL_STORAGE;
+	}
+
+	public static int getConstPermissionReadGservices() {
+		return CONST_PERMISSION_READ_GSERVICES;
+	}
+
+	public static int getConstPermissionWriteExternalStorage() {
+		return CONST_PERMISSION_WRITE_EXTERNAL_STORAGE;
+	}
+
 	public static String getConstScheme() {
 		return CONST_SCHEME;
 	}
@@ -146,8 +170,20 @@ public class COMMANDApplication extends Application {
 		return CONST_VIDEOS;
 	}
 
+	public static String getDatabaseName() {
+		return DATABASE_NAME;
+	}
+
+	public static int getDatabaseVersion() {
+		return DATABASE_VERSION;
+	}
+
 	public static String getDebugTag() {
 		return DEBUG_TAG;
+	}
+
+	public static String [] getPermissionsCOMMAND() {
+		return PermissionsCOMMAND;
 	}
 
 	public static COMMANDApplication getSingleton() {
@@ -181,29 +217,5 @@ public class COMMANDApplication extends Application {
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
-	}
-
-	public static int getConstPermissionReadContacts() {
-		return CONST_PERMISSION_READ_CONTACTS;
-	}
-
-	public static int getConstPermissionReadCallLog() {
-		return CONST_PERMISSION_READ_CALL_LOG;
-	}
-
-	public static int getConstPermissionWriteExternalStorage() {
-		return CONST_PERMISSION_WRITE_EXTERNAL_STORAGE;
-	}
-
-	public static int getConstPermissionReadExternalStorage() {
-		return CONST_PERMISSION_READ_EXTERNAL_STORAGE;
-	}
-
-	public static int getConstPermissionReadGservices() {
-		return CONST_PERMISSION_READ_GSERVICES;
-	}
-
-	public static String [] getPermissionsCOMMAND() {
-		return PermissionsCOMMAND;
 	}
 }

@@ -44,9 +44,7 @@ public class Audios extends ContentProvider {
 	* Database specific constant declarations
 	*/
 	private SQLiteDatabase db;
-	static final String DATABASE_NAME = "Content";
 	static final String TABLE_NAME = "fakeAudio";
-	static final int DATABASE_VERSION = 1;
 	static final String CREATE_DB_TABLE =
 			" CREATE TABLE " + TABLE_NAME +
 			" (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
@@ -58,7 +56,7 @@ public class Audios extends ContentProvider {
 	*/
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 		DatabaseHelper(Context context){
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+			super(context, COMMANDApplication.getDatabaseName(), null, COMMANDApplication.getDatabaseVersion());
 		}
 	
 		@Override

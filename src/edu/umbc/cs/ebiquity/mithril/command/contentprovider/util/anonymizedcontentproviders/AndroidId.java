@@ -10,10 +10,10 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import edu.umbc.cs.ebiquity.mithril.command.COMMANDApplication;
+import edu.umbc.cs.ebiquity.mithril.command.policymanager.PolicyDBHelper;
 /**
  * @purpose: Is internally called by SPrivacy to get anonymous data
  * @last_edit_date: 08/21/2014
@@ -25,7 +25,7 @@ public class AndroidId extends ContentProvider {
 			+COMMANDApplication.getConstAnnonymous()
 			+COMMANDApplication.getConstAndroidId();
 	static final String URL = "content://" + PROVIDER_NAME;
-	 static final Uri CONTENT_URI = Uri.parse(URL);
+	static final Uri CONTENT_URI = Uri.parse(URL);
 
 	static final String ANDROID_ID_KEY = "key";
 	static final String ANDROID_ID_VAL = "value";
@@ -44,39 +44,16 @@ public class AndroidId extends ContentProvider {
 	* Database specific constant declarations
 	*/
 	private SQLiteDatabase db;
-	static final String DATABASE_NAME = "Content";
 	static final String TABLE_NAME = "anonymousAndroidId";
-	static final int DATABASE_VERSION = 1;
 	static final String CREATE_DB_TABLE =
 			" CREATE TABLE " + TABLE_NAME + " ("+
 			ANDROID_ID_KEY + " TEXT PRIMARY KEY, " + 
 			ANDROID_ID_VAL + " TEXT NOT NULL);";
 
-	/**
-	* Helper class that actually creates and manages 
-	* the provider's underlying data repository.
-	*/
-	private static class DatabaseHelper extends SQLiteOpenHelper {
-		DatabaseHelper(Context context){
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		}
-	
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			db.execSQL(CREATE_DB_TABLE);
-		}
-		
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
-			onCreate(db);
-		}
-	}
-	
 	@Override
 	public boolean onCreate() {
 		Context context = getContext();
-		DatabaseHelper dbHelper = new DatabaseHelper(context);
+		PolicyDBHelper dbHelper = new PolicyDBHelper(context);
 		/**
 		* Create a write able database which will trigger its 
 		* creation if it doesn't already exist.
