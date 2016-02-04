@@ -58,7 +58,9 @@ public class Images extends ContentProvider {
 	* Database specific constant declarations
 	*/
 	private SQLiteDatabase db;
+	static final String DATABASE_NAME = "FakeImageContent";
 	static final String TABLE_NAME = "fakeImage";
+	static final int DATABASE_VERSION = 1;
 	static final String CREATE_DB_TABLE =
 			" CREATE TABLE " + TABLE_NAME + " (" + 
 			ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
@@ -70,7 +72,7 @@ public class Images extends ContentProvider {
 	*/
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 		DatabaseHelper(Context context){
-			super(context, COMMANDApplication.getDatabaseName(), null, COMMANDApplication.getDatabaseVersion());
+			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 	
 		@Override

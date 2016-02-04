@@ -71,6 +71,8 @@ public class Contacts extends ContentProvider {
 	* Database specific constant declarations
 	*/
 	private SQLiteDatabase db;
+	static final String DATABASE_NAME = "FakeContactContent";
+	static final int DATABASE_VERSION = 1;
 	
 	/**
 	 * All the tables being created
@@ -139,7 +141,7 @@ public class Contacts extends ContentProvider {
 	*/
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 		DatabaseHelper(Context context){
-			super(context, COMMANDApplication.getDatabaseName(), null, COMMANDApplication.getDatabaseVersion());
+			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 	
 		@Override

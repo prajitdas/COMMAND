@@ -64,6 +64,9 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 	private final static String POLACCLVL = "accesslvl";
 	
 	// database declarations
+	private final static String DATABASE_NAME = "PrivacyPolicies";
+	private final static int DATABASE_VERSION = 1;
+
 	private final static String APPLICATION_TABLE_NAME = "applications";
 	private final static String PROVIDER_TABLE_NAME = "providers";
 	private final static String SERVICE_TABLE_NAME = "services";
@@ -205,12 +208,12 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public PolicyDBHelper(Context context) {
-		super(context, COMMANDApplication.getDatabaseName(), null, COMMANDApplication.getDatabaseVersion());
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.setContext(context); 
 	}
 
 	public String getDatabaseName() {
-		return COMMANDApplication.getDatabaseName();
+		return DATABASE_NAME;
 	}
 
 	public Context getContext() {
@@ -222,7 +225,7 @@ public class PolicyDBHelper extends SQLiteOpenHelper {
 	}
 	
 	public static int getDatabaseVersion() {
-		return COMMANDApplication.getDatabaseVersion();
+		return DATABASE_VERSION;
 	}
 
 	/**

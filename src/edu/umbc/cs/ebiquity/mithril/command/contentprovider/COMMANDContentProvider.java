@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ import android.provider.MediaStore.Video;
 import android.util.Log;
 import edu.umbc.cs.ebiquity.mithril.command.COMMANDApplication;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.PolicyChecker;
-import edu.umbc.cs.ebiquity.mithril.command.policymanager.PolicyDBHelper;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.AccessControl;
 import edu.umbc.cs.ebiquity.mithril.command.policymanager.util.PolicyQuery;
 
@@ -585,26 +585,26 @@ public class COMMANDContentProvider extends ContentProvider {
 		uriMatcher.addURI(PROVIDER_NAME, "groups", SPrivacyQuery.CONTACTS_GROUPS);
 	}
 	
-//	/**
-//	* Helper class that actually creates and manages 
-//	* the provider's underlying data repository.
-//	*/
-//	private static class DatabaseHelper extends SQLiteOpenHelper {
-//		DatabaseHelper(Context context){
-//			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//		}
-//	
-//		@Override
-//		public void onCreate(SQLiteDatabase db) {
-//			db.execSQL(CREATE_DB_TABLE);
-//		}
-//		
-//		@Override
-//		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//			db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
-//			onCreate(db);
-//		}
-//	}
+	/**
+	* Helper class that actually creates and manages 
+	* the provider's underlying data repository.
+	*/
+	private static class DatabaseHelper extends SQLiteOpenHelper {
+		DatabaseHelper(Context context){
+			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		}
+	
+		@Override
+		public void onCreate(SQLiteDatabase db) {
+			db.execSQL(CREATE_DB_TABLE);
+		}
+		
+		@Override
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL("DROP TABLE IF EXISTS " +  TABLE_NAME);
+			onCreate(db);
+		}
+	}
 
 	/**
      * This interface defines constants for the Cursor and CursorLoader
@@ -885,8 +885,12 @@ public class COMMANDContentProvider extends ContentProvider {
 	*/
 	private SQLiteDatabase db;
 	
+	static final String DATABASE_NAME = "Content";
+	
 	static final String TABLE_NAME = "content";
 	
+	static final int DATABASE_VERSION = 1;
+
 	static final String CREATE_DB_TABLE =
 			" CREATE TABLE " + TABLE_NAME +
 			" (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
@@ -1045,7 +1049,7 @@ public class COMMANDContentProvider extends ContentProvider {
 		Log.v(COMMANDApplication.getDebugTag(), CALL_LOGS_CONTENT_URI.toString());
 		Log.v(COMMANDApplication.getDebugTag(), ANDROID_ID_CONTENT_URI.toString());
 		Context context = getContext();
-		PolicyDBHelper dbHelper = new PolicyDBHelper(context);
+		DatabaseHelper dbHelper = new DatabaseHelper(context);
 		/**
 		* Create a write able database which will trigger its 
 		* creation if it doesn't already exist.

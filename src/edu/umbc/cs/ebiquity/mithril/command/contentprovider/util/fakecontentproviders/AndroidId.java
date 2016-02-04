@@ -45,7 +45,9 @@ public class AndroidId extends ContentProvider {
 	* Database specific constant declarations
 	*/
 	private SQLiteDatabase db;
+	static final String DATABASE_NAME = "FakeAndroidIdContent";
 	static final String TABLE_NAME = "fakeAndroidId";
+	static final int DATABASE_VERSION = 1;
 	static final String CREATE_DB_TABLE =
 			" CREATE TABLE " + TABLE_NAME + " ("+
 			ANDROID_ID_KEY + " TEXT PRIMARY KEY, " + 
@@ -57,7 +59,7 @@ public class AndroidId extends ContentProvider {
 	*/
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 		DatabaseHelper(Context context){
-			super(context, COMMANDApplication.getDatabaseName(), null, COMMANDApplication.getDatabaseVersion());
+			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 	
 		@Override
